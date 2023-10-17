@@ -8,7 +8,7 @@ setup(
     author='Sam Fakhreddine',
     author_email='sam.fakhreddine@gmail.com',
     url='https://github.com/sam-fakhreddine/str2bool3',
-    download_url='https://github.com/sam-fakhreddine/str2bool3/tarball/1.0.0',  
+    download_url='https://github.com/sam-fakhreddine/str2bool3/archive/refs/tags/1.0.0.tar.gz',  
     keywords=['str2bool', 'bool', 'boolean', 'convert', 'yes', 'no', 'true', 'false'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
