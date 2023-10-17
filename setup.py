@@ -11,7 +11,7 @@ setup(
     packages=['str2bool3'],
     version=version,
     description='Convert string to boolean (Forked from SymonSoft/str2bool)',
-    author='Your Name',
+    author='Sam Fakhreddine',
     author_email='sam.fakhreddine@gmail.com',
     url='https://github.com/sam-fakhreddine/str2bool3',
     long_description=long_description,
