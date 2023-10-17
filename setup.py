@@ -12,7 +12,7 @@ setup(
     version=version,
     description='Convert string to boolean (Forked from SymonSoft/str2bool)',
     author='Your Name',
-    author_email='your.email@example.com',
+    author_email='sam.fakhreddine@gmail.com',
     url='https://github.com/sam-fakhreddine/str2bool3',
     long_description=long_description,
     long_description_content_type='text/markdown',
