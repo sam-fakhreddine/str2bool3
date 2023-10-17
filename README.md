@@ -1,4 +1,4 @@
-# str2bool v.1.1
+# str2bool3 v1.0.0
 
 ## About
 Convert string to boolean.
@@ -7,14 +7,16 @@ Case insensitive.
 
 ## Installation
 
-    $ pip install str2bool
+    $ pip install str2bool3
 
 ## Examples
 Here's a basic example:
 
-    >>> from str2bool import str2bool
-    >>> print(str2bool('Yes'))
+    >>> from str2bool3 import str2bool3
+    >>> print(str2bool3('Yes'))
     True
 
 ## License
 BSD
+
+forked from symonsoft/str2bool
