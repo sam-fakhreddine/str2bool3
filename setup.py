@@ -1,14 +1,18 @@
-from setuptools import setup  # Prefer setuptools over distutils
+import os
+from setuptools import setup
+
+# Read version from environment variable, with fallback to default version
+version = os.environ.get('PACKAGE_VERSION', '1.0.0')
 
 setup(
     name='str2bool3',
-    packages=['str2bool3'],  
-    version='1.0.0',  
+    packages=['str2bool3'],
+    version=version,
     description='Convert string to boolean (Forked from SymonSoft/str2bool)',
-    author='Sam Fakhreddine',
-    author_email='sam.fakhreddine@gmail.com',
+    author='Your Name',
+    author_email='your.email@example.com',
     url='https://github.com/sam-fakhreddine/str2bool3',
-    download_url='https://github.com/sam-fakhreddine/str2bool3/archive/refs/tags/1.0.0.tar.gz',  
+    download_url=f'https://github.com/sam-fakhreddine/str2bool3/archive/refs/tags/{version}.tar.gz',
     keywords=['str2bool', 'bool', 'boolean', 'convert', 'yes', 'no', 'true', 'false'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
