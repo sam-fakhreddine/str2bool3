@@ -3,7 +3,9 @@ from setuptools import setup
 
 # Read version from environment variable, with fallback to default version
 version = os.environ.get('PACKAGE_VERSION', '1.0.0')
-
+with open("README.md", "r", encoding="utf-8") as f:
+    long_description = f.read()
+    
 setup(
     name='str2bool3',
     packages=['str2bool3'],
@@ -12,6 +14,8 @@ setup(
     author='Your Name',
     author_email='your.email@example.com',
     url='https://github.com/sam-fakhreddine/str2bool3',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     download_url=f'https://github.com/sam-fakhreddine/str2bool3/archive/refs/tags/{version}.tar.gz',
     keywords=['str2bool', 'bool', 'boolean', 'convert', 'yes', 'no', 'true', 'false'],
     classifiers=[
