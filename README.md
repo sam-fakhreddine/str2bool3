@@ -12,7 +12,7 @@ Case insensitive.
 ## Examples
 Here's a basic example:
 
-    >>> from str2bool3 import str2bool3
+    >>> from str2bool3 import str2bool
     >>> print(str2bool3('Yes'))
     True
 
