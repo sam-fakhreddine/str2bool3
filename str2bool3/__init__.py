@@ -1,22 +1,26 @@
-from typing import Union
+from typing import Optional
 
-# Refactored Python 3.9 compatible code for string to boolean conversion
+class StrUtils:
+    TRUE_SET = {'yes', 'true', 't', 'y', '1'}
+    FALSE_SET = {'no', 'false', 'f', 'n', '0'}
 
-def str2bool(value: Union[str, None], raise_exc: bool = False) -> Union[bool, None]:
-    true_set = {'yes', 'true', 't', 'y', '1'}
-    false_set = {'no', 'false', 'f', 'n', '0'}
-    
-    if isinstance(value, str):
+    @staticmethod
+    def str2bool(value: Optional[str], raise_exc: bool = False, default: Optional[bool] = None) -> Optional[bool]:
+        if value is None:
+            return default
+
         value = value.lower()
-        if value in true_set:
+        if value in StrUtils.TRUE_SET:
             return True
-        if value in false_set:
+        if value in StrUtils.FALSE_SET:
             return False
-    
-    if raise_exc:
-        raise ValueError(f'Expected one of: {", ".join(true_set | false_set)}')
-    
-    return None
 
-def str2bool_exc(value: Union[str, None]) -> bool:
-    return str2bool(value, raise_exc=True)
+        if raise_exc:
+            valid_values = ', '.join(sorted(StrUtils.TRUE_SET | StrUtils.FALSE_SET))
+            raise ValueError(f"Invalid value '{value}'. Expected one of: {valid_values}.")
+
+        return default
+
+    @staticmethod
+    def str2bool_exc(value: Optional[str]) -> bool:
+        return StrUtils.str2bool(value, raise_exc=True)
