@@ -2,7 +2,7 @@ import os
 from setuptools import setup
 
 # Read version from environment variable, with fallback to default version
-version = os.environ.get('PACKAGE_VERSION', '1.0.0')
+version = os.environ.get('PACKAGE_VERSION', '1.3.0')
 with open("README.md", "r", encoding="utf-8") as f:
     long_description = f.read()
     
