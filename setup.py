@@ -1,9 +1,6 @@
 import os
 from setuptools import setup
 
-# Allow CI to override version via PACKAGE_VERSION env var (set from git tag)
-version = os.environ.get('PACKAGE_VERSION')
-if version:
-    setup(version=version)
-else:
-    setup()
+# Single source of truth: PACKAGE_VERSION env var (set from git tag in CI),
+# falling back to the default development version.
+setup(version=os.environ.get('PACKAGE_VERSION', '1.4.0'))
