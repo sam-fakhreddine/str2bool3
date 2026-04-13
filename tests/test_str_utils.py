@@ -1,5 +1,26 @@
 import pytest
-from str2bool3 import str2bool, str2bool_exc
+from str2bool3 import FALSE_VALUES, TRUE_VALUES, str2bool, str2bool_exc
+
+
+# ---------------------------------------------------------------------------
+# Public constants
+# ---------------------------------------------------------------------------
+
+class TestValueSets:
+    def test_true_values_is_frozenset(self):
+        assert isinstance(TRUE_VALUES, frozenset)
+
+    def test_false_values_is_frozenset(self):
+        assert isinstance(FALSE_VALUES, frozenset)
+
+    def test_true_and_false_sets_are_disjoint(self):
+        assert TRUE_VALUES.isdisjoint(FALSE_VALUES)
+
+    def test_true_values_contains_expected(self):
+        assert {'yes', 'true', 't', 'y', '1', 'on', 'enabled'} <= TRUE_VALUES
+
+    def test_false_values_contains_expected(self):
+        assert {'no', 'false', 'f', 'n', '0', 'off', 'disabled'} <= FALSE_VALUES
 
 
 # ---------------------------------------------------------------------------
@@ -13,6 +34,8 @@ class TestTrueValues:
         "t", "T",
         "y", "Y",
         "1",
+        "on", "ON", "On",
+        "enabled", "ENABLED", "Enabled",
     ])
     def test_string_true(self, value):
         assert str2bool(value) is True
@@ -35,6 +58,8 @@ class TestFalseValues:
         "f", "F",
         "n", "N",
         "0",
+        "off", "OFF", "Off",
+        "disabled", "DISABLED", "Disabled",
     ])
     def test_string_false(self, value):
         assert str2bool(value) is False
@@ -71,6 +96,12 @@ class TestWhitespace:
 
     def test_both_spaces_false(self):
         assert str2bool("  no  ") is False
+
+    def test_whitespace_around_on(self):
+        assert str2bool("  on  ") is True
+
+    def test_whitespace_around_disabled(self):
+        assert str2bool("  disabled  ") is False
 
 
 # ---------------------------------------------------------------------------
@@ -117,6 +148,12 @@ class TestRaiseExc:
     def test_valid_false_no_exception(self):
         assert str2bool("no", raise_exc=True) is False
 
+    def test_on_no_exception(self):
+        assert str2bool("on", raise_exc=True) is True
+
+    def test_disabled_no_exception(self):
+        assert str2bool("disabled", raise_exc=True) is False
+
     def test_bool_true_no_exception(self):
         assert str2bool(True, raise_exc=True) is True
 
@@ -153,6 +190,14 @@ class TestRaiseExc:
         with pytest.raises(ValueError, match="Expected one of"):
             str2bool("nope", raise_exc=True)
 
+    def test_none_error_mentions_expected_values(self):
+        with pytest.raises(ValueError, match="Expected one of"):
+            str2bool(None, raise_exc=True)
+
+    def test_invalid_int_error_mentions_zero_one(self):
+        with pytest.raises(ValueError, match="0 or 1"):
+            str2bool(2, raise_exc=True)
+
 
 # ---------------------------------------------------------------------------
 # str2bool — TypeError for unsupported types
@@ -186,6 +231,18 @@ class TestStr2BoolExc:
     def test_valid_false(self):
         assert str2bool_exc("no") is False
 
+    def test_on(self):
+        assert str2bool_exc("on") is True
+
+    def test_off(self):
+        assert str2bool_exc("off") is False
+
+    def test_enabled(self):
+        assert str2bool_exc("enabled") is True
+
+    def test_disabled(self):
+        assert str2bool_exc("disabled") is False
+
     def test_bool_true_passthrough(self):
         assert str2bool_exc(True) is True
 
@@ -215,6 +272,12 @@ class TestStr2BoolExc:
 
     def test_whitespace_false(self):
         assert str2bool_exc(" no ") is False
+
+    def test_whitespace_on(self):
+        assert str2bool_exc(" on ") is True
+
+    def test_whitespace_disabled(self):
+        assert str2bool_exc(" disabled ") is False
 
     def test_unsupported_type_raises_type_error(self):
         with pytest.raises(TypeError):
