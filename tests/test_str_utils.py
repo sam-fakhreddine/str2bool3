@@ -130,6 +130,19 @@ class TestNoneAndDefaults:
     def test_empty_string_with_default(self):
         assert str2bool("", default=True) is True
 
+    def test_whitespace_only_returns_none(self):
+        assert str2bool("   ") is None
+
+    def test_whitespace_only_tab_newline_returns_none(self):
+        assert str2bool("\t\n") is None
+
+    def test_whitespace_only_with_default(self):
+        assert str2bool("   ", default=False) is False
+
+    def test_whitespace_only_raises_when_raise_exc(self):
+        with pytest.raises(ValueError, match="Expected one of"):
+            str2bool("   ", raise_exc=True)
+
     def test_invalid_int_returns_none(self):
         assert str2bool(2) is None
 
@@ -167,7 +180,7 @@ class TestRaiseExc:
         assert str2bool(0, raise_exc=True) is False
 
     def test_none_raises_value_error(self):
-        with pytest.raises(ValueError):
+        with pytest.raises(ValueError, match="Cannot convert None to bool"):
             str2bool(None, raise_exc=True)
 
     def test_invalid_string_raises_value_error(self):
